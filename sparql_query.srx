@@ -1,0 +1,19 @@
+PREFIX ex: <http://example.org/defectKG#>
+
+SELECT ?module ?loc ?complexity ?defect_severity ?defect_probability
+WHERE {
+    ?module a ex:CodeModule .
+    ?module ex:hasMetric ?metric .
+    ?metric ex:LOC ?loc .
+    ?metric ex:complexity ?complexity .
+    
+    OPTIONAL {
+        ?module ex:hasDefect ?defect .
+        ?defect ex:severity ?defect_severity .
+    }
+    
+    OPTIONAL {
+        ?module ex:hasPredictionResult ?prediction .
+        ?prediction ex:defectProbability ?defect_probability .
+    }
+}

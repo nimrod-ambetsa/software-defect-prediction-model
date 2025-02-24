@@ -1,0 +1,130 @@
+@prefix : <http://example.org/defect-prediction#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/defect-prediction>
+    rdf:type owl:Ontology ;
+    rdfs:comment "Ontology for defect prediction in software modules" .
+
+### Classes ###
+
+:CodeModule rdf:type owl:Class ;
+    rdfs:label "Code Module" ;
+    rdfs:comment "A software module containing code" .
+
+:Defect rdf:type owl:Class ;
+    rdfs:label "Defect" ;
+    rdfs:comment "A defect or bug in a software module" .
+
+:TestCase rdf:type owl:Class ;
+    rdfs:label "Test Case" ;
+    rdfs:comment "A test case designed to verify a module" .
+
+:Commit rdf:type owl:Class ;
+    rdfs:label "Commit" ;
+    rdfs:comment "A commit representing a code change" .
+
+:Developer rdf:type owl:Class ;
+    rdfs:label "Developer" ;
+    rdfs:comment "A person who writes and modifies code" .
+
+### Object Properties ###
+
+:hasDefect rdf:type owl:ObjectProperty ;
+    rdfs:domain :CodeModule ;
+    rdfs:range :Defect ;
+    rdfs:comment "Links a code module to its associated defects" .
+
+:hasTestCase rdf:type owl:ObjectProperty ;
+    rdfs:domain :CodeModule ;
+    rdfs:range :TestCase ;
+    rdfs:comment "Links a code module to its test cases" .
+
+:modifies rdf:type owl:ObjectProperty ;
+    rdfs:domain :Commit ;
+    rdfs:range :CodeModule ;
+    rdfs:comment "Links a commit to the code module it modifies" .
+
+:commits rdf:type owl:ObjectProperty ;
+    rdfs:domain :Developer ;
+    rdfs:range :Commit ;
+    rdfs:comment "Links a developer to the commits they made" .
+
+:detects rdf:type owl:ObjectProperty ;
+    rdfs:domain :TestCase ;
+    rdfs:range :Defect ;
+    rdfs:comment "Links a test case to the defects it detects" .
+
+### Data Properties ###
+
+:linesOfCode rdf:type owl:DatatypeProperty ;
+    rdfs:domain :CodeModule ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Number of lines of code in the module" .
+
+:complexity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :CodeModule ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Cyclomatic complexity of the code module" .
+
+:dependencies rdf:type owl:DatatypeProperty ;
+    rdfs:domain :CodeModule ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Dependencies associated with the code module" .
+
+:defectID rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Defect ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Unique identifier for the defect" .
+
+:severity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Defect ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Severity level of the defect (High, Medium, Low)" .
+
+:status rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Defect ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Current status of the defect (Open, Closed, Resolved)" .
+
+:testID rdf:type owl:DatatypeProperty ;
+    rdfs:domain :TestCase ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Unique identifier for the test case" .
+
+:result rdf:type owl:DatatypeProperty ;
+    rdfs:domain :TestCase ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Test case result (Pass/Fail)" .
+
+:coverage rdf:type owl:DatatypeProperty ;
+    rdfs:domain :TestCase ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Percentage of code covered by the test case" .
+
+:commitID rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Commit ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Unique identifier for the commit" .
+
+:commitMessage rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Commit ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Message describing the commit" .
+
+:timestamp rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Commit ;
+    rdfs:range xsd:dateTime ;
+    rdfs:comment "Timestamp of the commit" .
+
+:developerID rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Developer ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Unique identifier for the developer" .
+
+:experienceLevel rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Developer ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Years of experience of the developer" .
